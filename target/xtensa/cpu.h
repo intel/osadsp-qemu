@@ -88,6 +88,7 @@ enum {
     XTENSA_OPTION_XLMI,
     XTENSA_OPTION_HW_ALIGNMENT,
     XTENSA_OPTION_MEMORY_ECC_PARITY,
+    XTENSA_OPTION_PREFETCH,
 
     /* Memory protection and translation */
     XTENSA_OPTION_REGION_PROTECTION,
@@ -123,6 +124,7 @@ enum {
     ACCLO = 16,
     ACCHI = 17,
     MR = 32,
+    PREFCTL = 40,
     WINDOW_BASE = 72,
     WINDOW_START = 73,
     PTEVADDR = 83,

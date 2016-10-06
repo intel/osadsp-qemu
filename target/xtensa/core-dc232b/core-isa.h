@@ -126,7 +126,7 @@
 #define XCHAL_DCACHE_SIZE               16384   /* D-cache size in bytes or 0 */
 
 #define XCHAL_DCACHE_IS_WRITEBACK       1       /* writeback feature */
-
+#define XCHAL_HAVE_PREFETCH            0       /* PREFCTL register */
 
 
 

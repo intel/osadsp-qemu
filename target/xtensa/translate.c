@@ -196,6 +196,7 @@ static const XtensaReg sregnames[256] = {
     [MISC + 1] = XTENSA_REG("MISC1", XTENSA_OPTION_MISC_SR),
     [MISC + 2] = XTENSA_REG("MISC2", XTENSA_OPTION_MISC_SR),
     [MISC + 3] = XTENSA_REG("MISC3", XTENSA_OPTION_MISC_SR),
+    [PREFCTL] = XTENSA_REG("PREFCTL", XTENSA_OPTION_PREFETCH),
 };
 
 static const XtensaReg uregnames[256] = {
