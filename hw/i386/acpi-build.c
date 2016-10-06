@@ -60,6 +60,8 @@
 #include "qom/qom-qobject.h"
 #include "hw/i386/amd_iommu.h"
 #include "hw/i386/intel_iommu.h"
+#include "hw/adsp/hw.h"
+#include "hw/audio/adsp-host.h"
 
 #include "hw/acpi/ipmi.h"
 
@@ -2038,6 +2040,7 @@ build_dsdt(GArray *table_data, BIOSLinker *linker,
         }
     }
 
+    build_acpi_byt_adsp_devices(dsdt);
     if (misc->tpm_version != TPM_VERSION_UNSPEC) {
         aml_append(crs, aml_memory32_fixed(TPM_TIS_ADDR_BASE,
                    TPM_TIS_ADDR_SIZE, AML_READ_WRITE));
