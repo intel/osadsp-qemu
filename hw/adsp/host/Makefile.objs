@@ -1,0 +1,3 @@
+obj-y += \
+	host-dma.o mbox.o \
+	byt.o byt-shim.o byt-pci.o
