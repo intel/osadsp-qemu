@@ -1,6 +1,8 @@
 obj-y += byt-shim.o
 obj-y += hsw-shim.o
+obj-y += bxt-shim.o
 obj-y += mbox.o
 obj-y += byt.o
 obj-y += hsw.o
+obj-y += bxt.o
 obj-y += common.o
