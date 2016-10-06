@@ -51,6 +51,10 @@
 #define SST_DEV_ID_CHERRYTRAIL       0x22A8
 #define SST_DEV_ID_LYNX_POINT        0x33C8
 #define SST_DEV_ID_WILDCAT_POINT     0x3438
+#define SST_DEV_ID_SUNRISE_POINT     0x9d70
+#define SST_DEV_ID_BROXTON_P         0x5a98
+
+
 
 struct adsp_dma_buffer {
     int chan;
@@ -120,4 +124,14 @@ void adsp_hsw_init_shim(struct adsp_host *adsp, const char *name);
 void adsp_hsw_host_init(struct adsp_host *adsp, const char *name);
 void adsp_bdw_host_init(struct adsp_host *adsp, const char *name);
 void build_acpi_hsw_adsp_devices(Aml *table);
+
+#define ADSP_HOST_BXT_NAME        "adsp-bxt"
+
+void adsp_bxt_init_pci(struct adsp_host *adsp);
+void adsp_bxt_pci_realize(PCIDevice *pci_dev, Error **errp);
+void adsp_bxt_pci_exit(PCIDevice *pci_dev);
+void adsp_bxt_init_shim(struct adsp_host *adsp, const char *name);
+void adsp_bxt_host_init(struct adsp_host *adsp, const char *name);
+void build_acpi_bxt_adsp_devices(Aml *table);
+
 #endif

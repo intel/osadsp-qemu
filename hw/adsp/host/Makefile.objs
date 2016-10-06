@@ -1,4 +1,5 @@
 obj-y += \
 	host-dma.o mbox.o \
 	byt.o byt-shim.o byt-pci.o \
-	hsw.o hsw-shim.o hsw-pci.o
+	hsw.o hsw-shim.o hsw-pci.o \
+	bxt.o bxt-shim.o bxt-pci.o
