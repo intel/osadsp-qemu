@@ -1,0 +1,4 @@
+obj-y += byt-shim.o
+obj-y += mbox.o
+obj-y += byt.o
+obj-y += common.o
