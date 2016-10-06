@@ -1,0 +1,1 @@
+./configure --prefix=`pwd`/root --target-list=xtensa-softmmu,x86_64-softmmu --enable-gtk --enable-sdl --enable-spice --audio-drv-list=alsa --enable-libusb --enable-usb-redir --enable-coroutine-pool
