@@ -1,7 +1,7 @@
 if [ $# -lt 1 ]
 then
   echo "usage: $0 device"
-  echo "supported devices: byt, cht, hsw, bdw"
+  echo "supported devices: byt, cht, hsw, bdw, bxt"
   exit
 fi
 
@@ -22,9 +22,13 @@ case $1 in
  CPU="haswell"
  ADSP="adsp-bdw"
   ;;
+*bxt)
+ CPU="broxton"
+ ADSP="adsp-bxt"
+  ;;
 *)
   echo "usage: $0 device"
-  echo "supported devices: byt, cht, hsw, bdw"
+  echo "supported devices: byt, cht, hsw, bdw, bxt"
   ./xtensa-softmmu/qemu-system-xtensa -machine help
   exit
   ;;
