@@ -31,7 +31,7 @@ struct hsw_pci_data {
     int build_rt286;
 };
 
-static struct hsw_pci_data pdata = {0, 0, 1};
+static struct hsw_pci_data pdata = {0, 0, 0};
 
 static uint64_t hsw_pci_read(void *opaque, hwaddr addr,
         unsigned size)
