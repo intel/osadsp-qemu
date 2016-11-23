@@ -167,7 +167,7 @@ static inline void log_read(struct adsp_log *log,
 			continue;
 
 		if (!reg[i].enable)
-			continue;
+			break;
 
 		log_print(log, "%s.io: read at %x val 0x%8.8lx\n", space->name,
 			(unsigned int)addr, value);
@@ -175,6 +175,10 @@ static inline void log_read(struct adsp_log *log,
 		return;
 
 	}
+
+	/* fall through */
+	log_print(log, "%s.io: *read* at %x val 0x%8.8lx\n", space->name,
+	            (unsigned int)addr, value);
 }
 
 static inline void log_write(struct adsp_log *log,
@@ -191,7 +195,7 @@ static inline void log_write(struct adsp_log *log,
 			continue;
 
 		if (!reg[i].enable)
-			continue;
+			break;
 
 		log_print(log, "%s.io: write 0x%x = \t0x%8.8lx (old 0x%lx) \t(%8.8ld) \t|%c%c%c%c|\n",
 			space->name, (unsigned int)addr, val,
@@ -200,6 +204,13 @@ static inline void log_write(struct adsp_log *log,
 			log_get_char(val, 1), log_get_char(val, 0));
 		return;
 	}
+
+	/* fall through */
+	log_print(log, "%s.io: *write* 0x%x = \t0x%8.8lx (old 0x%lx) \t(%8.8ld) \t|%c%c%c%c|\n",
+	    space->name, (unsigned int)addr, val,
+	    old_val, val,
+	    log_get_char(val, 3), log_get_char(val, 2),
+	    log_get_char(val, 1), log_get_char(val, 0));
 }
 #else
 #define log_read(log, space, addr, size, value)
