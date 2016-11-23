@@ -47,6 +47,7 @@ typedef struct
   xtensa_reg_mask_t *mask;
 } xtensa_mask_t;
 
+#if 0
 /* Masked registers.  */
 static xtensa_reg_mask_t xtensa_submask0[] = { { 43, 0, 1 } };
 static const xtensa_mask_t xtensa_mask0 = { 1, xtensa_submask0 };
@@ -110,7 +111,7 @@ static xtensa_reg_mask_t xtensa_submask29[] = { { 61, 0, 27 } };
 static const xtensa_mask_t xtensa_mask29 = { 1, xtensa_submask29 };
 static xtensa_reg_mask_t xtensa_submask30[] = { { 61, 27, 1 } };
 static const xtensa_mask_t xtensa_mask30 = { 1, xtensa_submask30 };
-
+#endif
 
 
 static XtensaConfig baytrail __attribute__((unused)) = {
