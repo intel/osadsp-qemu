@@ -42,6 +42,12 @@ static const struct adsp_desc byt_board = {
         .desc = {.base = ADSP_BYT_HOST_MAILBOX_BASE,
                 .size = ADSP_MAILBOX_SIZE},
     },
+
+    .pci_dev = {
+        .name = "pci",
+        .desc = {.base = ADSP_BYT_PCI_BASE,
+                .size = ADSP_PCI_SIZE},
+    },
 };
 
 static void do_irq(struct adsp_host *adsp, struct qemu_io_msg *msg)
