@@ -27,6 +27,8 @@ static const struct adsp_desc bxt_board = {
     .dram0 = {.base = 0xFE500000, .size = 0x28000},
     .pci =  {.base = 0xFE830000, .size = 0x1000},
 
+    /* TODO add HDA base */
+
     .shim_dev = {
         .name = "shim",
         .reg_count = ARRAY_SIZE(adsp_byt_shim_map),
@@ -39,6 +41,12 @@ static const struct adsp_desc bxt_board = {
         .reg_count = ARRAY_SIZE(adsp_host_mbox_map),
         .reg = adsp_host_mbox_map,
         .desc = {.base = 0xFE544000, .size = 0x1000},
+    },
+
+   .pci_dev = {
+        .name = "pci",
+        .desc = {.base = 0xFE830000,
+                .size = ADSP_PCI_SIZE},
     },
 };
 
