@@ -734,6 +734,8 @@ void dw_dmac_reset(void *opaque)
     const struct adsp_reg_space *gp_dmac_dev = dmac->desc;
 
     memset(dmac->io, 0, gp_dmac_dev->desc.size);
+
+    dmac->io[DW_DMA_CFG >> 2] = 0x1;
 }
 
 static uint64_t dmac_read(void *opaque, hwaddr addr,
