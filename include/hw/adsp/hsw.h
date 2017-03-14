@@ -64,7 +64,7 @@
 #define ADSP_HSW_DSP_IRAM_BASE      0x00000000
 #define ADSP_HSW_DSP_DRAM_BASE      0x00400000
 
-#define ADSP_HSW_IRAM_SIZE          0x60000
+#define ADSP_HSW_IRAM_SIZE          0x50000
 #define ADSP_HSW_DRAM_SIZE          0x80000
 
 #define ADSP_BDW_DSP_IRAM_BASE      0x00000000

@@ -41,6 +41,12 @@ static const struct adsp_desc hsw_board = {
         .desc = {.base = ADSP_HSW_HOST_MAILBOX_BASE,
                 .size = ADSP_MAILBOX_SIZE},
     },
+
+    .pci_dev = {
+        .name = "pci",
+        .desc = {.base = ADSP_HSW_PCI_BASE,
+                .size = ADSP_PCI_SIZE},
+    },
 };
 
 static const struct adsp_desc bdw_board = {
@@ -62,6 +68,12 @@ static const struct adsp_desc bdw_board = {
         .reg = adsp_host_mbox_map,
         .desc = {.base = ADSP_BDW_HOST_MAILBOX_BASE,
                 .size = ADSP_MAILBOX_SIZE},
+    },
+
+    .pci_dev = {
+        .name = "pci",
+        .desc = {.base = ADSP_BDW_PCI_BASE,
+                .size = ADSP_PCI_SIZE},
     },
 };
 

@@ -1,4 +1,4 @@
-/*
+/* 
  * xtensa/config/core-isa.h -- HAL definitions that are dependent on Xtensa
  *				processor CORE configuration
  *
@@ -114,7 +114,7 @@
 #define XCHAL_HAVE_HIFI2		1	/* HiFi2 Audio Engine pkg */
 #define XCHAL_HAVE_HIFI2EP		1	/* HiFi2EP */
 #define XCHAL_HAVE_HIFI2_MUL32X24	1	/* HiFi2 and 32x24 MACs */
-#define XCHAL_HAVE_HIFI_MINI		0
+#define XCHAL_HAVE_HIFI_MINI		0	
 
 
 #define XCHAL_HAVE_VECTORFPU2005	0	/* vector or user floating-point pkg */
@@ -133,8 +133,8 @@
 #define XCHAL_HAVE_DFP_ACCEL		0	/* double precision FP acceleration pkg */
 #define XCHAL_HAVE_DFP_accel		XCHAL_HAVE_DFP_ACCEL				/* for backward compatibility */
 
-#define XCHAL_HAVE_DFPU_SINGLE_ONLY    0			/* DFPU Coprocessor, single precision only */
-#define XCHAL_HAVE_DFPU_SINGLE_DOUBLE  0		/* DFPU Coprocessor, single and double precision */
+#define XCHAL_HAVE_DFPU_SINGLE_ONLY    0                 	/* DFPU Coprocessor, single precision only */
+#define XCHAL_HAVE_DFPU_SINGLE_DOUBLE  0               	/* DFPU Coprocessor, single and double precision */
 #define XCHAL_HAVE_VECTRA1		0	/* Vectra I  pkg */
 #define XCHAL_HAVE_VECTRALX		0	/* Vectra LX pkg */
 #define XCHAL_HAVE_PDX4		        0	/* PDX4 */
@@ -299,7 +299,7 @@
 /*  Data RAM 0:  */
 #define XCHAL_DATARAM0_VADDR		0x00400000	/* virtual address */
 #define XCHAL_DATARAM0_PADDR		0x00400000	/* physical address */
-#define XCHAL_DATARAM0_SIZE		0xA0000	/* size in bytes */
+#define XCHAL_DATARAM0_SIZE		0x80000	/* size in bytes */
 #define XCHAL_DATARAM0_ECC_PARITY	0	/* ECC/parity type, 0=none */
 #define XCHAL_DATARAM0_BANKS		1	/* number of banks */
 
@@ -368,21 +368,21 @@
 						   EXCSAVE/EPS/EPC_n, RFI n) */
 
 /*  Type of each interrupt:  */
-#define XCHAL_INT0_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT1_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT2_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT3_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT4_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT5_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT6_TYPE		XTHAL_INTTYPE_TIMER
-#define XCHAL_INT7_TYPE		XTHAL_INTTYPE_SOFTWARE
-#define XCHAL_INT8_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT9_TYPE		XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT10_TYPE	XTHAL_INTTYPE_TIMER
-#define XCHAL_INT11_TYPE	XTHAL_INTTYPE_SOFTWARE
-#define XCHAL_INT12_TYPE	XTHAL_INTTYPE_EXTERN_LEVEL
-#define XCHAL_INT13_TYPE	XTHAL_INTTYPE_TIMER
-#define XCHAL_INT14_TYPE	XTHAL_INTTYPE_NMI
+#define XCHAL_INT0_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT1_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT2_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT3_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT4_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT5_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT6_TYPE 	XTHAL_INTTYPE_TIMER
+#define XCHAL_INT7_TYPE 	XTHAL_INTTYPE_SOFTWARE
+#define XCHAL_INT8_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT9_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT10_TYPE 	XTHAL_INTTYPE_TIMER
+#define XCHAL_INT11_TYPE 	XTHAL_INTTYPE_SOFTWARE
+#define XCHAL_INT12_TYPE 	XTHAL_INTTYPE_EXTERN_LEVEL
+#define XCHAL_INT13_TYPE 	XTHAL_INTTYPE_TIMER
+#define XCHAL_INT14_TYPE 	XTHAL_INTTYPE_NMI
 
 /*  Masks of interrupts for each type of interrupt:  */
 #define XCHAL_INTTYPE_MASK_UNCONFIGURED	0xFFFF8000
@@ -429,7 +429,15 @@
 #define XCHAL_EXTINT7_NUM		9	/* (intlevel 3) */
 #define XCHAL_EXTINT8_NUM		12	/* (intlevel 4) */
 #define XCHAL_EXTINT9_NUM		14	/* (intlevel 7) */
-
+#if 0
+#define XCHAL_EXTINT10_NUM		15	/* (intlevel 1) */
+#define XCHAL_EXTINT11_NUM		16	/* (intlevel 1) */
+#define XCHAL_EXTINT12_NUM		17	/* (intlevel 1) */
+#define XCHAL_EXTINT13_NUM		18	/* (intlevel 1) */
+#define XCHAL_EXTINT14_NUM		19	/* (intlevel 1) */
+#define XCHAL_EXTINT15_NUM		20	/* (intlevel 1) */
+#define XCHAL_EXTINT16_NUM		21	/* (intlevel 3) */
+#endif
 /*  EXTERNAL BInterrupt pin numbers mapped to each core interrupt number:  */
 #define XCHAL_INT0_EXTNUM		0	/* (intlevel 1) */
 #define XCHAL_INT1_EXTNUM		1	/* (intlevel 1) */
@@ -573,3 +581,4 @@
 
 
 #endif /* _XTENSA_CORE_CONFIGURATION_H */
+
