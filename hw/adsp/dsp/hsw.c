@@ -261,7 +261,7 @@ static const struct adsp_desc bdw_dsp_desc = {
         .name = "mbox",
         .reg_count = ARRAY_SIZE(adsp_mbox_map),
         .reg = adsp_mbox_map,
-        .desc = {.base = ADSP_HSW_DSP_MAILBOX_BASE, .size = ADSP_MAILBOX_SIZE},
+        .desc = {.base = ADSP_BDW_DSP_MAILBOX_BASE, .size = ADSP_MAILBOX_SIZE},
     },
     .shim_dev = {
         .name = "shim",
@@ -274,28 +274,28 @@ static const struct adsp_desc bdw_dsp_desc = {
         .irq = IRQ_NUM_EXT_DMAC0,
         .reg_count = ARRAY_SIZE(adsp_gp_dma_map),
         .reg = adsp_gp_dma_map,
-        .desc = {.base = ADSP_HSW_DMA0_BASE, .size = ADSP_HSW_DMA0_SIZE},
+        .desc = {.base = ADSP_BDW_DMA0_BASE, .size = ADSP_HSW_DMA0_SIZE},
     },
     .gp_dmac_dev[1] = {
         .name = "dmac1",
         .irq = IRQ_NUM_EXT_DMAC1,
         .reg_count = ARRAY_SIZE(adsp_gp_dma_map),
         .reg = adsp_gp_dma_map,
-        .desc = {.base = ADSP_HSW_DMA1_BASE, .size = ADSP_HSW_DMA1_SIZE},
+        .desc = {.base = ADSP_BDW_DMA1_BASE, .size = ADSP_HSW_DMA1_SIZE},
     },
     .ssp_dev[0] = {
         .name = "ssp0",
         .irq = IRQ_NUM_EXT_SSP0,
         .reg_count = ARRAY_SIZE(adsp_ssp_map),
         .reg = adsp_ssp_map,
-        .desc = {.base = ADSP_HSW_SSP0_BASE, .size = ADSP_HSW_SSP0_SIZE},
+        .desc = {.base = ADSP_BDW_SSP0_BASE, .size = ADSP_HSW_SSP0_SIZE},
     },
     .ssp_dev[1] = {
         .name = "ssp1",
         .irq = IRQ_NUM_EXT_SSP1,
         .reg_count = ARRAY_SIZE(adsp_ssp_map),
         .reg = adsp_ssp_map,
-        .desc = {.base = ADSP_HSW_SSP1_BASE, .size = ADSP_HSW_SSP1_SIZE},
+        .desc = {.base = ADSP_BDW_SSP1_BASE, .size = ADSP_HSW_SSP1_SIZE},
     },
 };
 
