@@ -28,6 +28,7 @@
 #define ICH6_REG_STATESTS		0x0e
 #define ICH6_REG_GSTS			0x10
 #define   ICH6_GSTS_FSTS	(1 << 1)   /* flush status */
+#define ICH6_REG_LLCH			0x14
 #define ICH6_REG_INTCTL			0x20
 #define ICH6_REG_INTSTS			0x24
 #define ICH6_REG_WALLCLK		0x30	/* 24Mhz source */
@@ -82,6 +83,23 @@ enum { SDI0, SDI1, SDI2, SDI3, SDO0, SDO1, SDO2, SDO3 };
 #define ICH6_REG_SD_FORMAT		0x12
 #define ICH6_REG_SD_BDLPL		0x18
 #define ICH6_REG_SD_BDLPU		0x1c
+
+/* DSP register offsets */
+#define ICH6_REG_ALLCH			0x800
+#define  ICH6_CAP_SHIFT			16
+#define  ICH6_PP_CAP_ID			0x3
+#define ICH6_REG_ADSPCS			0x804
+#define ICH6_REG_ADSPIC			0x808
+#define ICH6_REG_ADSPIS			0x80c
+#define ICH6_REG_ADSPIC2		0x810
+#define ICH6_REG_ADSPIS2		0x814
+
+#define ICH6_REG_HIPCT   		0x840
+#define ICH6_REG_HIPCTE   		0x844
+#define ICH6_REG_HIPCI   		0x848
+#define ICH6_REG_HIPCIE   		0x84c
+#define ICH6_REG_HIPCCTL   		0x850
+
 
 /* PCI space */
 #define ICH6_PCIREG_TCSEL	0x44

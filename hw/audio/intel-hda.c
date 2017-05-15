@@ -174,6 +174,18 @@ struct IntelHDAState {
     uint32_t irr;
     uint32_t ics;
 
+    uint32_t adspcs;
+    uint32_t adspic;
+    uint32_t adspis;
+    uint32_t adspic2;
+    uint32_t adspis2;
+
+    uint32_t hipct;
+    uint32_t hipcte;
+    uint32_t hipci;
+    uint32_t hipcie;
+    uint32_t hipcctl;
+
     /* streams */
     IntelHDAStream st[8];
 
@@ -535,6 +547,56 @@ static void intel_hda_get_wall_clk(IntelHDAState *d, const IntelHDAReg *reg)
     d->wall_clk = (uint32_t)(ns * 24 / 1000);  /* 24 MHz */
 }
 
+static void intel_hda_set_adspcs(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_set_adspic(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_get_adspis(IntelHDAState *d, const IntelHDAReg *reg)
+{
+
+}
+
+static void intel_hda_set_adspic2(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_get_adspis2(IntelHDAState *d, const IntelHDAReg *reg)
+{
+
+}
+
+static void intel_hda_set_hipct(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_set_hipcte(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_set_hipci(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_set_hipcie(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
+static void intel_hda_set_hipcctl(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
+{
+
+}
+
 static void intel_hda_set_corb_wp(IntelHDAState *d, const IntelHDAReg *reg, uint32_t old)
 {
     intel_hda_corb_run(d);
@@ -650,7 +712,11 @@ static const struct IntelHDAReg regtab[] = {
         .offset   = offsetof(IntelHDAState, state_sts),
         .whandler = intel_hda_set_state_sts,
     },
-
+    [ ICH6_REG_LLCH ] = {
+        .name     = "LLCH",
+        .size     = 2,
+        .reset    = ICH6_REG_ALLCH,
+    },
     /* interrupts */
     [ ICH6_REG_INTCTL ] = {
         .name     = "INTCTL",
@@ -899,6 +965,76 @@ static const struct IntelHDAReg regtab[] = {
     HDA_STREAM("OUT", 6)
     HDA_STREAM("OUT", 7)
 
+    /* capabilities */
+    [ ICH6_REG_ALLCH ] = {
+        .name     = "ALLCH",
+        .size     = 2,
+        .reset    = ICH6_PP_CAP_ID << ICH6_CAP_SHIFT,
+    },
+
+   /* Control and Status */
+   [ ICH6_REG_ADSPCS ] = {
+        .name     = "ADSPCS",
+        .size     = 4,
+	.whandler = intel_hda_set_adspcs,
+        .offset   = offsetof(IntelHDAState, adspcs),
+    },
+   [ ICH6_REG_ADSPIC ] = {
+        .name     = "ADSPIC",
+        .size     = 4,
+	.whandler = intel_hda_set_adspic,
+        .offset   = offsetof(IntelHDAState, adspic),
+    },
+   [ ICH6_REG_ADSPIS ] = {
+        .name     = "ADSPIS",
+        .size     = 4,
+	.rhandler = intel_hda_get_adspis,
+        .offset   = offsetof(IntelHDAState, adspis),
+    },
+    [ ICH6_REG_ADSPIC2 ] = {
+        .name     = "ADSPIC2",
+        .size     = 4,
+	.whandler = intel_hda_set_adspic2,
+        .offset   = offsetof(IntelHDAState, adspic2),
+    },
+   [ ICH6_REG_ADSPIS2 ] = {
+        .name     = "ADSPIS2",
+        .size     = 4,
+        .rhandler = intel_hda_get_adspis2,
+        .offset   = offsetof(IntelHDAState, adspis2),
+    },
+
+    /* IPC */
+    [ ICH6_REG_HIPCT ] = {
+        .name     = "HIPCT",
+        .size     = 4,
+	.whandler = intel_hda_set_hipct,
+        .offset   = offsetof(IntelHDAState, hipct),
+    },
+    [ ICH6_REG_HIPCTE ] = {
+        .name     = "HIPCTE",
+        .size     = 4,
+	.whandler = intel_hda_set_hipcte,
+        .offset   = offsetof(IntelHDAState, hipcte),
+    },
+    [ ICH6_REG_HIPCI ] = {
+        .name     = "HIPCTI",
+        .size     = 4,
+	.whandler = intel_hda_set_hipci,
+        .offset   = offsetof(IntelHDAState, hipci),
+    },
+    [ ICH6_REG_HIPCIE ] = {
+        .name     = "HIPCIE",
+        .size     = 4,
+	.whandler = intel_hda_set_hipcie,
+        .offset   = offsetof(IntelHDAState, hipcie),
+    },
+    [ ICH6_REG_HIPCCTL ] = {
+        .name     = "HIPCCTL",
+        .size     = 4,
+	.whandler = intel_hda_set_hipcctl,
+        .offset   = offsetof(IntelHDAState, hipcctl),
+    },
 };
 
 static const IntelHDAReg *intel_hda_reg_find(IntelHDAState *d, hwaddr addr)
@@ -1257,6 +1393,17 @@ static void intel_hda_class_init_ich9(ObjectClass *klass, void *data)
     dc->desc = "Intel HD Audio Controller (ich9)";
 }
 
+static void intel_hda_class_init_bxt(ObjectClass *klass, void *data)
+{
+    DeviceClass *dc = DEVICE_CLASS(klass);
+    PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
+
+    k->device_id = 0x5a98;
+    k->revision = 3;
+    set_bit(DEVICE_CATEGORY_SOUND, dc->categories);
+    dc->desc = "Intel HD Audio Controller (Broxton)";
+}
+
 static const TypeInfo intel_hda_info = {
     .name          = TYPE_INTEL_HDA_GENERIC,
     .parent        = TYPE_PCI_DEVICE,
@@ -1279,6 +1426,12 @@ static const TypeInfo intel_hda_info_ich9 = {
     .name          = "ich9-intel-hda",
     .parent        = TYPE_INTEL_HDA_GENERIC,
     .class_init    = intel_hda_class_init_ich9,
+};
+
+static const TypeInfo intel_hda_info_bxt = {
+    .name          = "bxt-intel-hda",
+    .parent        = TYPE_INTEL_HDA_GENERIC,
+    .class_init    = intel_hda_class_init_bxt,
 };
 
 static void hda_codec_device_class_init(ObjectClass *klass, void *data)
@@ -1323,6 +1476,7 @@ static void intel_hda_register_types(void)
     type_register_static(&intel_hda_info);
     type_register_static(&intel_hda_info_ich6);
     type_register_static(&intel_hda_info_ich9);
+    type_register_static(&intel_hda_info_bxt);
     type_register_static(&hda_codec_device_type_info);
     pci_register_soundhw("hda", "Intel HD Audio", intel_hda_and_codec_init);
 }
