@@ -24,7 +24,7 @@
 #include "qemu/osdep.h"
 #include "qapi/error.h"
 #include "qemu-common.h"
-#include "target-xtensa/cpu.h"
+#include "target/xtensa/cpu.h"
 
 struct adsp_xtensa {
     XtensaCPU *cpu;
