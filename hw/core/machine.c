@@ -118,6 +118,21 @@ static void machine_set_kernel(Object *obj, const char *value, Error **errp)
     ms->kernel_filename = g_strdup(value);
 }
 
+static char *machine_get_rom(Object *obj, Error **errp)
+{
+    MachineState *ms = MACHINE(obj);
+
+    return g_strdup(ms->rom_filename);
+}
+
+static void machine_set_rom(Object *obj, const char *value, Error **errp)
+{
+    MachineState *ms = MACHINE(obj);
+
+    g_free(ms->rom_filename);
+    ms->rom_filename = g_strdup(value);
+}
+
 static char *machine_get_initrd(Object *obj, Error **errp)
 {
     MachineState *ms = MACHINE(obj);
@@ -522,6 +537,11 @@ static void machine_class_init(ObjectClass *oc, void *data)
         machine_get_kernel, machine_set_kernel, &error_abort);
     object_class_property_set_description(oc, "kernel",
         "Linux kernel image file", &error_abort);
+
+    object_class_property_add_str(oc, "rom",
+        machine_get_rom, machine_set_rom, &error_abort);
+    object_class_property_set_description(oc, "rom",
+        "Xtensa ROM image file", &error_abort);
 
     object_class_property_add_str(oc, "initrd",
         machine_get_initrd, machine_set_initrd, &error_abort);
