@@ -19,12 +19,12 @@
  */
 
 #include "hw/audio/adsp-host.h"
-
+#include "hw/adsp/bxt.h"
 
 /* hardware memory map */
 static const struct adsp_desc bxt_board = {
-    .iram = {.base = 0xFE4c0000, .size = 0x14000},
-    .dram0 = {.base = 0xFE500000, .size = 0x28000},
+    .iram = {.base = 0xFE4c0000, .size = ADSP_BXT_DSP_SRAM_SIZE},
+    .dram0 = {.base = 0xFE500000, .size = ADSP_BXT_DSP_HP_SRAM_SIZE},
     .pci =  {.base = 0xFE830000, .size = 0x1000},
 
     /* TODO add HDA base */
@@ -40,7 +40,7 @@ static const struct adsp_desc bxt_board = {
         .name = "mbox",
         .reg_count = ARRAY_SIZE(adsp_host_mbox_map),
         .reg = adsp_host_mbox_map,
-        .desc = {.base = 0xFE544000, .size = 0x1000},
+        .desc = {.base = 0xFE544000, .size = ADSP_BXT_DSP_MAILBOX_SIZE},
     },
 
    .pci_dev = {

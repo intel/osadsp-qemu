@@ -31,6 +31,7 @@ struct adsp_dev {
 	/* IO - memory space */
 	uint32_t *mbox_io;
 	uint32_t *shim_io;
+	uint32_t *common_io;
 
 	/* runtime CPU */
 	struct adsp_xtensa *xtensa[ADSP_MAX_CORES];
@@ -43,6 +44,7 @@ struct adsp_dev {
 	const struct adsp_desc *desc;
 	const char *cpu_model;
 	const char *kernel_filename;
+        const char *rom_filename;
 
 	/* logging options */
 	struct adsp_log *log;

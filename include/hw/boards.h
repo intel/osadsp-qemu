@@ -244,6 +244,7 @@ struct MachineState {
     uint64_t   ram_slots;
     const char *boot_order;
     char *kernel_filename;
+    char *rom_filename;
     char *kernel_cmdline;
     char *initrd_filename;
     const char *cpu_model;

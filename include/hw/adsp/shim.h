@@ -143,7 +143,10 @@
 #define ADSP_IO_SHM_DRAM	1
 #define ADSP_IO_SHM_SHIM	2
 #define ADSP_IO_SHM_MBOX	3
-#define ADSP_IO_SHM_DMAC(dmac)			(4 + dmac)
+#define ADSP_IO_SHM_LP_SRAM	4
+#define ADSP_IO_SHM_ROM		5
+#define ADSP_IO_SHM_IO		6
+#define ADSP_IO_SHM_DMAC(dmac)			(8 + dmac)
 #define ADSP_IO_SHM_DMA(c, chan)		((c + 1) * 8 + chan)
 
 /* messages */

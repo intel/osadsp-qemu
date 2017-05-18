@@ -85,4 +85,7 @@ rm -fr /dev/mqueue/qemu-io-*
 #./xtensa-softmmu/qemu-system-xtensa -s -S -cpu hifi2_ep -M adsp_byt -nographic
 
 # VM can execute flat binary files at startup using -kernel cmd line option
-# -kernel ../reef/src/arch/xtensa/reef.bin
+#./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP -nographic  -kernel $2 -rom $3
+
+# flat binary with instruction tracing
+#./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP -nographic -d guest_errors,mmu,in_asm  -kernel $2 -rom $3

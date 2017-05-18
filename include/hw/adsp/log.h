@@ -251,7 +251,7 @@ static inline void log_area_write(struct adsp_log *log,
 	int i;
 
 	/* ignore writes of 0 atm - used in mbox clear and init */
-	if (val == 0 && addr >= 0xc00)
+	if (val == 0)// && addr >= 0xc00)
 	    return;
 
 	/* TODO: have a faster direct array mapping to register to addr */
@@ -310,6 +310,12 @@ static inline void log_area_write(struct adsp_log *log,
 			return;
 		}
 	}
+
+	/* fall through */
+	log_print(log, "%s.io: write 0x%x = \t0x%8.8lx \t(%8.8ld) \t|%c%c%c%c|\n",
+				space->name, (unsigned int)addr, val, val,
+				log_get_char(val, 3), log_get_char(val, 2),
+				log_get_char(val, 1), log_get_char(val, 0));
 }
 #else
 #define log_area_read(log, space, addr, size, value)

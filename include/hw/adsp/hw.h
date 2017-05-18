@@ -73,6 +73,7 @@ struct adsp_desc {
 	/* memory regions */
 	struct adsp_mem_desc iram;
 	struct adsp_mem_desc dram0;
+        struct adsp_mem_desc lp_sram;
 	struct adsp_mem_desc rom;
 	struct adsp_mem_desc pci;
 
@@ -84,6 +85,8 @@ struct adsp_desc {
 	struct adsp_reg_space shim_dev;
 	struct adsp_reg_space gp_dmac_dev[ADSP_MAX_GP_DMAC];
 	struct adsp_reg_space pci_dev;
+
+	struct adsp_reg_space io_dev; /* misc device atm */	
 };
 
 #endif
