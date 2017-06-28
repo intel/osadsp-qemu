@@ -3236,6 +3236,14 @@ STEXI
 Use @var{cmdline} as kernel command line
 ETEXI
 
+DEF("rom", HAS_ARG, QEMU_OPTION_rom, \
+"-rom file.rom use 'file.rom' as ROM image\n", QEMU_ARCH_XTENSA)
+STEXI
+@item -rom @var{cmdline}
+@findex -rom
+Use @var{cmdline} as rom command line
+ETEXI
+
 DEF("initrd", HAS_ARG, QEMU_OPTION_initrd, \
            "-initrd file    use 'file' as initial ram disk\n", QEMU_ARCH_ALL)
 STEXI
