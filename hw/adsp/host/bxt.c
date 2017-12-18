@@ -134,9 +134,7 @@ void adsp_bxt_host_init(struct adsp_host *adsp, const char *name)
     adsp->desc = &bxt_board;
     adsp->system_memory = get_system_memory();
     adsp->machine_opts = qemu_get_machine_opts();
-
     adsp->log = log_init(NULL);    /* TODO: add log name to cmd line */
-
     init_memory(adsp, name);
     adsp_bxt_init_pci(adsp);
     adsp_bxt_init_shim(adsp, name);
@@ -144,6 +142,7 @@ void adsp_bxt_host_init(struct adsp_host *adsp, const char *name)
 
     /* initialise bridge to x86 host driver */
     qemu_io_register_parent(name, &bxt_bridge_cb, (void*)adsp);
+
 }
 
 static void bxt_reset(DeviceState *dev)
@@ -185,6 +184,10 @@ static const TypeInfo adsp_base_info = {
     .instance_size = sizeof(struct adsp_host),
     .instance_init = bxt_instance_init,
     .class_init    = bxt_class_init,
+    .interfaces = (InterfaceInfo[]) {
+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+        { },
+    },
 };
 
 static void adsp_bxt_register_types(void)

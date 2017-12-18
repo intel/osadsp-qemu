@@ -209,6 +209,10 @@ static const TypeInfo byt_base_info = {
     .instance_size = sizeof(struct adsp_host),
     .instance_init = byt_instance_init,
     .class_init    = byt_class_init,
+    .interfaces = (InterfaceInfo[]) {
+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+        { },
+    },
 };
 
 static const TypeInfo cht_base_info = {
@@ -217,6 +221,10 @@ static const TypeInfo cht_base_info = {
     .instance_size = sizeof(struct adsp_host),
     .instance_init = byt_instance_init,
     .class_init    = cht_class_init,
+    .interfaces = (InterfaceInfo[]) {
+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+        { },
+    },
 };
 
 static void adsp_byt_register_types(void)

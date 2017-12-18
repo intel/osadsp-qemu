@@ -249,6 +249,10 @@ static const TypeInfo hsw_base_info = {
     .instance_size = sizeof(struct adsp_host),
     .instance_init = hsw_instance_init,
     .class_init    = hsw_class_init,
+    .interfaces = (InterfaceInfo[]) {
+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+        { },
+    },
 };
 
 static const TypeInfo bdw_base_info = {
@@ -257,6 +261,10 @@ static const TypeInfo bdw_base_info = {
     .instance_size = sizeof(struct adsp_host),
     .instance_init = hsw_instance_init,
     .class_init    = bdw_class_init,
+    .interfaces = (InterfaceInfo[]) {
+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+        { },
+    },
 };
 
 static void adsp_hsw_register_types(void)

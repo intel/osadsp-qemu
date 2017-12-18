@@ -293,6 +293,10 @@ static const TypeInfo dw_base_info = {
     .instance_size = sizeof(struct dw_host),
     .instance_init = dw_instance_init,
     .class_init    = dw_class_init,
+    .interfaces = (InterfaceInfo[]) {
+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+        { },
+    },
 };
 
 static void dw_register_types(void)

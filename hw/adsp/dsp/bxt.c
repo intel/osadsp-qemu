@@ -224,7 +224,8 @@ static struct adsp_dev *adsp_init(const struct adsp_desc *board,
 
     for (n = 0; n < smp_cpus; n++) {
         adsp->xtensa[n] = g_malloc(sizeof(struct adsp_xtensa));
-        adsp->xtensa[n]->cpu = cpu_xtensa_init(adsp->cpu_model);
+
+        adsp->xtensa[n]->cpu = XTENSA_CPU(cpu_create(machine->cpu_type));
 
         if (adsp->xtensa[n]->cpu == NULL) {
             error_report("unable to find CPU definition '%s'",
@@ -234,12 +235,14 @@ static struct adsp_dev *adsp_init(const struct adsp_desc *board,
 
         adsp->xtensa[n]->env = &adsp->xtensa[n]->cpu->env;
         adsp->xtensa[n]->env->sregs[PRID] = n;
+
         qemu_register_reset(adsp_reset, adsp->xtensa[n]->cpu);
 
         /* Need MMU initialized prior to ELF loading,
         * so that ELF gets loaded into virtual addresses
         */
         cpu_reset(CPU(adsp->xtensa[n]->cpu));
+
     }
 
     init_memory(adsp, name);
@@ -426,6 +429,7 @@ static void xtensa_bxt_machine_init(MachineClass *mc)
     mc->is_default = true;
     mc->init = bxt_adsp_init;
     mc->max_cpus = 2;
+    mc->default_cpu_type = XTENSA_DEFAULT_CPU_TYPE;
 }
 
 DEFINE_MACHINE("adsp_bxt", xtensa_bxt_machine_init)
