@@ -144,7 +144,7 @@ static struct adsp_dev *adsp_init(const struct adsp_desc *board,
 
     for (n = 0; n < smp_cpus; n++) {
         adsp->xtensa[n] = g_malloc(sizeof(struct adsp_xtensa));
-         adsp->xtensa[n]->cpu = XTENSA_CPU(cpu_create(adsp->cpu_model));
+         adsp->xtensa[n]->cpu = XTENSA_CPU(cpu_create(machine->cpu_type));
 
         if (adsp->xtensa[n]->cpu == NULL) {
             error_report("unable to find CPU definition '%s'",
@@ -315,6 +315,7 @@ static void xtensa_bdw_machine_init(MachineClass *mc)
     mc->is_default = true;
     mc->init = bdw_adsp_init;
     mc->max_cpus = 1;
+    mc->default_cpu_type = XTENSA_DEFAULT_CPU_TYPE;
 }
 
 DEFINE_MACHINE("adsp_bdw", xtensa_bdw_machine_init)
