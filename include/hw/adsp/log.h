@@ -136,8 +136,8 @@ static inline void log_print(struct adsp_log *log, const char *fmt, ...)
 
 	g_mutex_lock(&log->mutex);
 
-	fprintf(log->file, "%6.6ld:%6.6ld: ", tv.tv_sec - log->tv_sec_start,
-		tv.tv_usec);
+	//fprintf(log->file, "%6.6ld:%6.6ld: ", tv.tv_sec - log->tv_sec_start,
+	//	tv.tv_usec);
 	vfprintf(log->file, fmt, va);
 	g_mutex_unlock(&log->mutex);
 
@@ -261,14 +261,14 @@ static inline void log_area_write(struct adsp_log *log,
 		//	continue;
 
 		/* TODO: get trace offset - do trace differently */
-		if (addr >= 0xc00) {
+		if (1) {
 
 			/* timestamp or value ? */
-			if ((addr % 8) == 0) {
-				log_print(log, "trace.io: timestamp 0x%8.8x delta 0x%8.8x ",
-					(uint32_t)val, (uint32_t)val - log->timestamp);
+			if ((addr % 16) == 0) {
+				//log_print(log, "trace.io: timestamp 0x%8.8x delta 0x%8.8x ",
+				//	(uint32_t)val, (uint32_t)val - log->timestamp);
 				log->timestamp = val;
-				return;
+				//return;
 			}
 
 			class = val & 0xff000000;
@@ -291,7 +291,10 @@ static inline void log_area_write(struct adsp_log *log,
 			else if (class == TRACE_CLASS_WFI)
 				trace = "wfi";
 			else {
-				log_print(log, "value 0x%8.8x\n", (uint32_t)val);
+				log_print(log, " 0x%x = \t0x%8.8lx \t(%8.8ld) \t|%c%c%c%c|\n",
+				(unsigned int)addr, val, val,
+				log_get_char(val, 3), log_get_char(val, 2),
+				log_get_char(val, 1), log_get_char(val, 0));
 				return;
 			}
 
