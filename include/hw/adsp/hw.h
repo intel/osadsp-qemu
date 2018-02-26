@@ -76,6 +76,8 @@ struct adsp_desc {
         struct adsp_mem_desc lp_sram;
 	struct adsp_mem_desc rom;
 	struct adsp_mem_desc pci;
+	uint32_t host_iram_offset;
+	uint32_t host_dram_offset;
 
 	/* devices */
 	int num_ssp;
@@ -88,5 +90,7 @@ struct adsp_desc {
 
 	struct adsp_reg_space io_dev; /* misc device atm */	
 };
+
+int adsp_load_modules(struct adsp_dev *adsp, void *fw, size_t size);
 
 #endif

@@ -213,6 +213,8 @@ static const struct adsp_desc byt_dsp_desc = {
     .num_dmac = 2,
     .iram = {.base = ADSP_BYT_DSP_IRAM_BASE, .size = ADSP_BYT_IRAM_SIZE},
     .dram0 = {.base = ADSP_BYT_DSP_DRAM_BASE, .size = ADSP_BYT_DRAM_SIZE},
+    .host_iram_offset = ADSP_BYT_HOST_IRAM_OFFSET,
+    .host_dram_offset = ADSP_BYT_HOST_DRAM_OFFSET,
 
     .mbox_dev = {
         .name = "mbox",

@@ -185,16 +185,11 @@ static struct adsp_dev *adsp_init(const struct adsp_desc *board,
     }
 
     /* load the binary image and copy to IRAM */
-    ldata = g_malloc(0x40000 + board->dram0.size);
+    ldata = g_malloc(board->iram.size + board->dram0.size);
     lsize = load_image_size(adsp->kernel_filename, ldata,
-        0x40000 + board->dram0.size);
+        board->iram.size + board->dram0.size);
 
-    /* copy to IRAM */
-    cpu_physical_memory_write(board->iram.base, ldata, board->iram.size);
-
-    /* copy DRAM section */
-    cpu_physical_memory_write(board->dram0.base, ldata + 0x40000,
-        lsize - 0x40000);
+    adsp_load_modules(adsp, ldata, lsize);
 
     return adsp;
 }
@@ -203,6 +198,8 @@ static struct adsp_dev *adsp_init(const struct adsp_desc *board,
 static const struct adsp_desc hsw_dsp_desc = {
     .name = "Haswell",
     .ia_irq = 4,
+    .host_iram_offset = ADSP_HSW_HOST_IRAM_OFFSET,
+    .host_dram_offset = ADSP_HSW_HOST_DRAM_OFFSET,
     .iram = {.base = ADSP_HSW_DSP_IRAM_BASE, .size = ADSP_HSW_IRAM_SIZE},
     .dram0 = {.base = ADSP_HSW_DSP_DRAM_BASE, .size = ADSP_HSW_DRAM_SIZE},
     .num_dmac = 2,
@@ -253,6 +250,8 @@ static const struct adsp_desc hsw_dsp_desc = {
 static const struct adsp_desc bdw_dsp_desc = {
     .name = "Broadwell",
     .ia_irq = 4,
+    .host_iram_offset = ADSP_BDW_HOST_IRAM_OFFSET,
+    .host_dram_offset = ADSP_BDW_HOST_DRAM_OFFSET,
     .iram = {.base = ADSP_BDW_DSP_IRAM_BASE, .size = ADSP_BDW_IRAM_SIZE},
     .dram0 = {.base = ADSP_BDW_DSP_DRAM_BASE, .size = ADSP_BDW_DRAM_SIZE},
     .num_dmac = 2,
