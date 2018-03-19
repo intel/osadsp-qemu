@@ -189,16 +189,11 @@ static struct adsp_dev *adsp_init(const struct adsp_desc *board,
     }
 
     /* load the binary image and copy to IRAM */
-    ldata = g_malloc(0x40000 + board->dram0.size);
+    ldata = g_malloc(board->iram.size + board->dram0.size);
     lsize = load_image_size(adsp->kernel_filename, ldata,
-        0x40000 + board->dram0.size);
+         board->iram.size + board->dram0.size);
 
-    /* copy to IRAM */
-    cpu_physical_memory_write(board->iram.base, ldata, board->iram.size);
-
-    /* copy DRAM section */
-    cpu_physical_memory_write(board->dram0.base, ldata + 0x40000,
-        lsize - 0x40000);
+    adsp_load_modules(adsp, ldata, lsize);
 
     return adsp;
 }

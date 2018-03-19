@@ -130,10 +130,16 @@ static int module_memcpy(struct adsp_dev *adsp,
 		case SOF_BLK_ROM:
 			continue;	/* not handled atm */
 		case SOF_BLK_TEXT:
-			 cpu_physical_memory_write(board->iram.base + block->offset - board->host_iram_offset,
+			fprintf(stdout, "text: 0x%lx size 0x%x\n",
+				board->iram.base + block->offset - board->host_iram_offset,
+				block->size);
+			cpu_physical_memory_write(board->iram.base + block->offset - board->host_iram_offset,
 				(void *)block + sizeof(*block), block->size);
 			break;
 		case SOF_BLK_DATA:
+			fprintf(stdout, "data: 0x%lx size 0x%x\n",
+				board->iram.base + block->offset - board->host_iram_offset,
+				block->size);
 			cpu_physical_memory_write(board->dram0.base + block->offset - board->host_dram_offset,
 				(void *)block + sizeof(*block), block->size);
 			break;
