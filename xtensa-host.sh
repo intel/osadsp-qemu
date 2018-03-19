@@ -1,10 +1,18 @@
 if [ $# -lt 1 ]
 then
-  echo "usage: $0 device"
+  echo "usage: $0 device [-k kernel] [-t] [-d] [-i] [-r rom] [-c] [-g]"
   echo "supported devices: byt, cht, hsw, bdw, bxt"
+  echo "[-k] | [--kernel]: load firmware kernel image"
+  echo "[-r] | [--rom]: load firmware ROM image"
+  echo "[-t] | [--trace]: trace DSP instructions"
+  echo "[-i] | [--irqs]: trace DSP IRQs"
+  echo "[-d] | [--debug]: enable GDB debugging - uses tcp::1234"
+  echo "[-c] | [--console]: Stall DSP and enter console before executing"
+  echo "[-g] | [--guest]: Display guest errors"
   exit
 fi
 
+# get device
 case $1 in
 *byt)
  CPU="baytrail"
@@ -26,14 +34,59 @@ case $1 in
  CPU="broxton"
  ADSP="adsp_bxt"
   ;;
+
 *)
-  echo "usage: $0 device"
+  echo "error: unsupported device"
   echo "supported devices: byt, cht, hsw, bdw, bxt"
   ./xtensa-softmmu/qemu-system-xtensa -machine help
   exit
   ;;
 esac
 
+# Parse remaining args
+ARG=()
+while [[ $# -gt 0 ]]
+do
+key="$2"
+
+case $key in
+    -k|--kernel)
+    KERNEL="-kernel $3"
+    shift # past argument
+    shift # past value
+    ;;
+    -r|--rom)
+    ROM="-rom $3"
+    shift # past argument
+    shift # past value
+    ;;
+    -t|--trace)
+    TARGS="-d mmu,in_asm"
+    shift # past argument
+    ;;
+    -i|--irqs)
+    IARGS="-d int"
+    shift # past argument
+    ;;
+    -g|--guest)
+    GARGS="-d guest_errors"
+    shift # past argument
+    ;;
+    -d|--debug)
+    DARGS="-s -S"
+    shift # past argument
+    ;;
+    -c|--console)
+    CARGS="-S"
+    shift # past argument
+    ;;
+    *)    # unknown option
+    ARG+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+set -- "${ARG[@]}" # restore arg parameters
 
 # clear old queues and memory
 rm -fr /dev/shm/qemu-bridge*
@@ -72,20 +125,6 @@ rm -fr /dev/mqueue/qemu-io-*
 #    (gdb)
 #
 
-# start the DSP virtualization - GDB disabled
-./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP -nographic -S
-#./xtensa-softmmu/qemu-system-xtensa -cpu hifi2_ep -M adsp_byt -nographic -d guest_errors,mmu,int,in_asm -kernel ../reef/src/arch/xtensa/reef.bin
-#./xtensa-softmmu/qemu-system-xtensa -cpu hifi2_ep -M adsp_byt -nographic -d guest_errors,mmu -kernel ~/source/reef/image.bin
-#./xtensa-softmmu/qemu-system-xtensa -cpu hifi2_ep -M adsp_byt -nographic -kernel ../reef/src/arch/xtensa/reef.bin
+echo ./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP $TARGS $DARGS $IARGS -nographic $KERNEL $ROM $CARGS $GARGS
+./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP $TARGS $DARGS $IARGS -nographic $KERNEL $ROM $CARGS $GARGS
 
-# start the DSP virtualization - GDB enabled with CPU running
-#./xtensa-softmmu/qemu-system-xtensa -s -cpu hifi2_ep -M adsp_byt -nographic
-
-# start the DSP virtualization - GDB enabled with CPU stalled
-#./xtensa-softmmu/qemu-system-xtensa -s -S -cpu hifi2_ep -M adsp_byt -nographic
-
-# VM can execute flat binary files at startup using -kernel cmd line option
-#./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP -nographic  -kernel $2 -rom $3
-
-# flat binary with instruction tracing
-#./xtensa-softmmu/qemu-system-xtensa -cpu $CPU -M $ADSP -nographic -d guest_errors,mmu,in_asm  -kernel $2 -rom $3
