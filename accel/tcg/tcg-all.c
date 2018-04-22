@@ -39,7 +39,7 @@ unsigned long tcg_tb_size;
 static void tcg_handle_interrupt(CPUState *cpu, int mask)
 {
     int old_mask;
-   // g_assert(qemu_mutex_iothread_locked());
+    g_assert(qemu_mutex_iothread_locked());
 
     old_mask = cpu->interrupt_request;
     cpu->interrupt_request |= mask;
