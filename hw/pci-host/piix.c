@@ -478,10 +478,6 @@ static void piix3_set_irq_level(PIIX3State *piix3, int pirq, int level)
     int pic_irq;
 
     pic_irq = piix3->dev.config[PIIX_PIRQC + pirq];
-if (pirq == 0) {
-piix3->dev.config[PIIX_PIRQC + pirq] = 10;
-printf("check %s pirq %d pic %d\n", __func__, pirq, pic_irq);
-}
     if (pic_irq >= PIIX_NUM_PIC_IRQS) {
         return;
     }
