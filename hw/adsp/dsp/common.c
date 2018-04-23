@@ -40,6 +40,7 @@ void adsp_set_irq(struct adsp_dev *adsp, int irq, int active)
     CPUXtensaState *env = adsp->xtensa[0]->env;
     uint32_t irq_bit = 1 << irq;
 
+    qemu_mutex_lock_iothread();
     if (active) {
         env->sregs[INTSET] |= irq_bit;
     } else if (env->config->interrupt[irq].inttype == INTTYPE_LEVEL) {
@@ -47,6 +48,8 @@ void adsp_set_irq(struct adsp_dev *adsp, int irq, int active)
     }
 
     check_interrupts(env);
+
+    qemu_mutex_unlock_iothread();
 }
 
 #define SND_SOF_FW_SIG_SIZE	4
