@@ -82,8 +82,10 @@ static void *pmc_work(void *data)
 
     adsp->shim_io[SHIM_ISRLPESC >> 2] &= ~SHIM_ISRLPESC_BUSY;
     adsp->shim_io[SHIM_ISRLPESC >> 2] |= SHIM_ISRLPESC_DONE;
-    adsp_set_irq(adsp, adsp->desc->pmc_irq, 1);
 
+    qemu_mutex_lock_iothread();
+    adsp_set_irq(adsp, adsp->desc->pmc_irq, 1);
+    qemu_mutex_unlock_iothread();
     return NULL;
 }
 
@@ -449,7 +451,9 @@ void adsp_byt_irq_msg(struct adsp_dev *adsp, struct qemu_io_msg *msg)
         adsp->shim_io[SHIM_IPCX >> 2]);
 
     if (active) {
+        qemu_mutex_lock_iothread();
         adsp_set_irq(adsp, adsp->desc->ia_irq, 1);
+        qemu_mutex_unlock_iothread();
     }
 }
 

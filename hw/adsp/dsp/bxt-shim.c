@@ -318,7 +318,9 @@ void adsp_bxt_irq_msg(struct adsp_dev *adsp, struct qemu_io_msg *msg)
         adsp->shim_io[SHIM_IPCX >> 2]);
 
     if (active) {
+        qemu_mutex_lock_iothread();
         adsp_set_irq(adsp, adsp->desc->ia_irq, 1);
+        qemu_mutex_unlock_iothread();
     }
 }
 
