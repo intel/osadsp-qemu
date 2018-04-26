@@ -144,12 +144,14 @@ static void build_acpi_byt_device(Aml *table)
     aml_append(crs,
     aml_memory32_fixed(ADSP_BYT_PCI_BASE, ADSP_PCI_SIZE, AML_READ_ONLY));
     aml_append(crs, aml_memory32_fixed(0x55AA55AA, 0x00100000, AML_READ_ONLY));
-    aml_append(crs, aml_irq_no_flags(0x8));
-    aml_append(crs, aml_irq_no_flags(0x9));
-    aml_append(crs, aml_irq_no_flags(0xa));
+
+    /* some BIOSes define 5 different IRQ resources for ADSP ? */
     aml_append(crs, aml_irq_no_flags(0xb));
-    aml_append(crs, aml_irq_no_flags(0xc));
-    aml_append(crs, aml_irq_no_flags(0xa)); /* used by upstream driver */
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb)); /* used by upstream driver */
     aml_append(dev, aml_name_decl("_CRS", crs));
 
     aml_append(scope, dev);
@@ -187,12 +189,14 @@ static void build_acpi_cht_device(Aml *table)
     aml_append(crs,
     aml_memory32_fixed(ADSP_CHT_PCI_BASE, ADSP_PCI_SIZE, AML_READ_ONLY));
     aml_append(crs, aml_memory32_fixed(0x55AA55AA, 0x00100000, AML_READ_ONLY));
-    aml_append(crs, aml_irq_no_flags(0x8));
-    aml_append(crs, aml_irq_no_flags(0x9));
-    aml_append(crs, aml_irq_no_flags(0xa));
+
+    /* some BIOSes define 5 different IRQ resources for ADSP ? */
     aml_append(crs, aml_irq_no_flags(0xb));
-    aml_append(crs, aml_irq_no_flags(0xc));
-    aml_append(crs, aml_irq_no_flags(0xa));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
+    aml_append(crs, aml_irq_no_flags(0xb));
     aml_append(dev, aml_name_decl("_CRS", crs));
 
     aml_append(scope, dev);
@@ -231,7 +235,7 @@ void adsp_byt_pci_realize(PCIDevice *pci_dev, Error **errp)
     pci_dev->config_write = adsp_byt_write_config;
     //pci_conf[PCI_INTERRUPT_PIN] = 3; /* interrupt pin A 0=11, A1=? B2=10 C3=? D4= ?*/
 
-    pci_set_byte(&pci_conf[PCI_INTERRUPT_PIN], 2); /* interrupt pin A */
+    pci_set_byte(&pci_conf[PCI_INTERRUPT_PIN], 1); /* interrupt pin A */
     pci_set_byte(&pci_conf[PCI_MIN_GNT], 0);
     pci_set_byte(&pci_conf[PCI_MAX_LAT], 0);
 

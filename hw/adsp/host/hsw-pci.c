@@ -118,7 +118,7 @@ static void build_acpi_hsw_device(Aml *table)
     aml_append(crs,
     aml_memory32_fixed(ADSP_HSW_PCI_BASE, ADSP_PCI_SIZE, AML_READ_ONLY));
     aml_append(crs, aml_memory32_fixed(0x55AA55AA, 0x00100000, AML_READ_ONLY));
-    aml_append(crs, aml_irq_no_flags(0xa));
+    aml_append(crs, aml_irq_no_flags(0xb));
     aml_append(dev, aml_name_decl("_CRS", crs));
 
     aml_append(scope, dev);
@@ -155,7 +155,7 @@ static void build_acpi_bdw_device(Aml *table)
     aml_append(crs,
     aml_memory32_fixed(ADSP_BDW_PCI_BASE, ADSP_PCI_SIZE, AML_READ_ONLY));
     aml_append(crs, aml_memory32_fixed(0x55AA55AA, 0x00100000, AML_READ_ONLY));
-    aml_append(crs, aml_irq_no_flags(0xa));
+    aml_append(crs, aml_irq_no_flags(0xb));
     aml_append(dev, aml_name_decl("_CRS", crs));
 
     aml_append(scope, dev);
@@ -191,7 +191,7 @@ void adsp_hsw_pci_realize(PCIDevice *pci_dev, Error **errp)
     pci_conf = pci_dev->config;
     pci_dev->config_write = adsp_hsw_write_config;
 
-    pci_set_byte(&pci_conf[PCI_INTERRUPT_PIN], 2); /* interrupt pin A */
+    pci_set_byte(&pci_conf[PCI_INTERRUPT_PIN], 1); /* interrupt pin A */
     pci_set_byte(&pci_conf[PCI_MIN_GNT], 0);
     pci_set_byte(&pci_conf[PCI_MAX_LAT], 0);
 
@@ -210,7 +210,7 @@ void adsp_bdw_pci_realize(PCIDevice *pci_dev, Error **errp)
     pci_conf = pci_dev->config;
     pci_dev->config_write = adsp_hsw_write_config;
 
-    pci_set_byte(&pci_conf[PCI_INTERRUPT_PIN], 2); /* interrupt pin A */
+    pci_set_byte(&pci_conf[PCI_INTERRUPT_PIN], 1); /* interrupt pin A */
     pci_set_byte(&pci_conf[PCI_MIN_GNT], 0);
     pci_set_byte(&pci_conf[PCI_MAX_LAT], 0);
 
